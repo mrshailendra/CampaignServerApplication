@@ -33,7 +33,7 @@ public class AdResorce {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createNewCsampaign(AdCampaign adCampaign) {
-		System.out.println("************reaching request******************");
+		//System.out.println("************reaching request******************");
 		AdCampaign newcreatedCampaign = adService.createAdCampaign(adCampaign);
 
 		return Response.status(Status.CREATED).entity(newcreatedCampaign).build();
@@ -43,6 +43,9 @@ public class AdResorce {
 	@GET
 	@Path("{partner_id}")
 	public Response featchAdCampaign(@PathParam("partner_id") String id) {
-		return null;
+		System.out.println("**Hi I am data Found****");
+		AdCampaign partnerAdCampaign = adService.getAdCampaignForPartner(id);
+		
+		return Response.status(Status.FOUND).entity(partnerAdCampaign).build();
 	}
 }

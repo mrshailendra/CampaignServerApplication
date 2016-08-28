@@ -44,17 +44,18 @@ public class AdService {
 		}
 		else
 		{
-			AdCampaign partnerAdCampaign = LocalMemory.getAdCampaign(adCampaign.getPartner_id());
-			
-			 Date campaignDateOld = new Date(partnerAdCampaign.getCreatedOn().getTime() + (partnerAdCampaign.getDuration()*1000));
-			 if(checkActiveCampaign(campaignDateOld))
-			 {
-				 throw new ActiveCampaignFoundException(
-						 "Partner campaign is active, Pls try after sometime");
-			 }
+//			AdCampaign partnerAdCampaign = LocalMemory.getAdCampaign(adCampaign.getPartner_id());
+//			
+//			 Date campaignDateOld = new Date(partnerAdCampaign.getCreatedOn().getTime() + (partnerAdCampaign.getDuration()*1000));
+//			 if(checkActiveCampaign(campaignDateOld))
+//			 {
+//				 throw new ActiveCampaignFoundException(
+//						 "Partner campaign is active, Pls try after sometime");
+//			 }
+			throw new ActiveCampaignFoundException("Partner campaign is active, Pls try after sometime");
 		}
 		
-		throw new ActiveCampaignFoundException("Partner campaign is active, Pls try after sometime");
+		
 		
 		
 	}
@@ -67,10 +68,12 @@ public class AdService {
 		
 		AdCampaign partnerAdCampaign = LocalMemory.getAdCampaign(partnerId);
 		
+		System.out.println("Campaign Date Brfore Duration Add:-"+partnerAdCampaign.getCreatedOn());
+		
 		 Date campaignDateOld = new Date(partnerAdCampaign.getCreatedOn().getTime() + (partnerAdCampaign.getDuration()*1000));
 		
 		// Date currentDate = Calendar.getInstance().getTime();
-		 if(!checkActiveCampaign(campaignDateOld))
+		 if(checkActiveCampaign(campaignDateOld))
 		 {
 			 throw new NoActiveCampaignFoundException(
 						"no active ad campaigns exist for the specified partner");
@@ -79,12 +82,20 @@ public class AdService {
 		return partnerAdCampaign;
 		
 	}
+	/**
+	 * 
+	 * @param existingCampaignDate
+	 * IF this campaign is Active return True
+	 * @return
+	 */
 	public boolean checkActiveCampaign(Date existingCampaignDate )
 	{
-		boolean activeFlag = true;
+		System.out.println("Campaign Date :- "+existingCampaignDate);
+		boolean activeFlag = false;
 		 Date currentDate = Calendar.getInstance().getTime();
+		 System.out.println("Current Date :- "+currentDate);
 		 if(existingCampaignDate.before(currentDate))
-			 activeFlag = false;
+			 activeFlag = true;
 		 return activeFlag;
 	}
 	
