@@ -14,8 +14,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import adServerApplication.exceptions.ActiveCampaignFoundException;
+import adServerApplication.exceptions.NoCampaignDataFounException;
 import adServerApplication.localMemory.LocalMemory;
 import adServerApplication.model.AdCampaign;
+import adServerApplication.model.ErrorMessage;
 import adServerApplication.services.AdService;
 
 @Path("ad")
@@ -45,7 +47,11 @@ public class AdResorce {
 	public Response featchAdCampaign(@PathParam("partner_id") String id) {
 		System.out.println("**Hi I am data Found****");
 		AdCampaign partnerAdCampaign = adService.getAdCampaignForPartner(id);
-		
+		if(partnerAdCampaign != null)
 		return Response.status(Status.FOUND).entity(partnerAdCampaign).build();
+		else
+		 throw new NoCampaignDataFounException("No Campaign Found");
+			
+		
 	}
 }

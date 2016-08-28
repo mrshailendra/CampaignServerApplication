@@ -5,6 +5,7 @@ package adServerApplication.model;
 
 import java.util.Date;
 
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -67,6 +68,15 @@ public class AdCampaign {
 		this.duration = duration;
 	}
 	
+	public AdCampaign(){
+		
+	}
 	
-
+	public AdCampaign(String partner_id, int duration,String adcontent, Date createdOn)
+	{
+		this.ad_content = adcontent;
+		this.partner_id = partner_id;
+		this.duration = duration;
+		this.createdOn = createdOn;
+	}
 }
